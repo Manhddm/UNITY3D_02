@@ -11,10 +11,22 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]private float runSpeed = 6f;
     [SerializeField] private float jumpHeight = 5f;
     [SerializeField] private float gravity = 9.8f;
+    [Header("Aim data")] 
+    public LayerMask aimLayerMask;
+    [SerializeField] private Transform aimTarget;
+    private Vector3 lookDirection;
+    
     private float verticalVelocity;
     
     private Vector2 moveInput ;
     private Vector2 aimInput;
+    private Camera _camera;
+
+    private void Start()
+    {
+        _camera = Camera.main;
+    }
+
     private void Awake()
     {
         _controls = new PlayerController();
@@ -26,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     {
         
         Movement();
+        AimTowardsMouse();
         
     }
 
@@ -72,14 +85,29 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
 
-    #region MyRegion
+    private void AimTowardsMouse()
+    {
+        if (_camera != null)
+        {
+            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, aimLayerMask))
+            {
+                lookDirection = hit.point - transform.position;//giai thich: 
+                lookDirection.y = 0f;
+                lookDirection.Normalize();
+                transform.forward = lookDirection;
+                aimTarget.position = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+            }
+        }
+    }
 
     private void Shoot()
     {
         Debug.Log("Bang bang");
     }
 
-    #endregion
+
     private void OnEnable()
     {
         _controls.Enable();

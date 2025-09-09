@@ -1,3 +1,4 @@
+using System.Globalization;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -5,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerController _controls;
     
     public CharacterController characterController;
+    private Animator _animator;
     private Vector3 moveDirection;
     [Header("Movement info")]
     [SerializeField]private float walkSpeed = 3f;
@@ -31,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _controls = new PlayerController();
         characterController = GetComponent<CharacterController>();
+        _animator = GetComponentInChildren<Animator>();
         Register();
     }
 
@@ -39,9 +42,18 @@ public class PlayerMovement : MonoBehaviour
         
         Movement();
         AimTowardsMouse();
+        AnimatorController();
         
     }
 
+    private void AnimatorController()
+    {
+        Vector3 input3 =  new Vector3(moveInput.x, 0, moveInput.y);
+        float xVelocity = Vector3.Dot(input3, transform.right);
+        float zVelocity = Vector3.Dot(input3, transform.forward);
+        _animator.SetFloat("xVelocity", xVelocity, .1f, Time.deltaTime);
+        _animator.SetFloat("zVelocity", zVelocity, .1f, Time.deltaTime);
+    }
 
     private void Register()
     {

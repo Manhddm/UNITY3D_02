@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c0b6e21757d41414a9b27807235df2f7
+guid: 4b942cb130dc05045bcb993baf45745b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: mixamo.com
+      name: Run Right
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 93
+      lastFrame: 15
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -47,7 +47,7 @@ ModelImporter:
       loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 1
-      loopBlendPositionY: 1
+      loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
@@ -106,15 +106,7 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  referencedClips:
-  - 396067173209f1d4ea285a5fbdd80146
-  - f6ff4670b26ca774d93f72863f8c2de0
-  - c11091c2f816d564cbdb861609ee1331
-  - 4b942cb130dc05045bcb993baf45745b
-  - f00002c44685fa548acea0d8cb272cf3
-  - 0fda1620987cd5844bef49dbbad186e2
-  - 8aae3d1fc91ee1743bb6c1d7d2fcd4c6
-  - e8fd1f819481ba845b47b418cd9516e5
+  referencedClips: []
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
@@ -893,11 +885,11 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: c0b6e21757d41414a9b27807235df2f7, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 2
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

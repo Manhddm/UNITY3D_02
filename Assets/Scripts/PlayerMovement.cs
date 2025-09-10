@@ -9,10 +9,12 @@ public class PlayerMovement : MonoBehaviour
     private Animator _animator;
     private Vector3 moveDirection;
     [Header("Movement info")]
-    [SerializeField]private float walkSpeed = 3f;
-    [SerializeField]private float runSpeed = 6f;
+    [SerializeField] private float walkSpeed = 3f;
+    [SerializeField] private float runSpeed = 4.5f;
     [SerializeField] private float jumpHeight = 5f;
     [SerializeField] private float gravity = 9.8f;
+    [SerializeField] private bool isRunning = true;
+    [SerializeField] private bool isMoving = false;
     [Header("Aim data")] 
     public LayerMask aimLayerMask;
     [SerializeField] private Transform aimTarget;
@@ -53,33 +55,27 @@ public class PlayerMovement : MonoBehaviour
         float zVelocity = Vector3.Dot(input3, transform.forward);
         _animator.SetFloat("xVelocity", xVelocity, .1f, Time.deltaTime);
         _animator.SetFloat("zVelocity", zVelocity, .1f, Time.deltaTime);
+        _animator.SetBool("isRunning", isRunning);
+        isMoving = input3 != Vector3.zero;
+        _animator.SetBool("isMoving", isMoving);
     }
 
-    private void Register()
-    {
-        //_controls.Character.Fire.performed += context => Shoot();
-        _controls.Character.Movement.performed += context => moveInput = context.ReadValue<Vector2>();
-        _controls.Character.Movement.canceled += context => moveInput = Vector2.zero;
 
-        _controls.Character.Jump.started += context => Jump();
-        
-        _controls.Character.Aim.performed += context => aimInput = context.ReadValue<Vector2>();
-        _controls.Character.Aim.canceled += context => aimInput = Vector2.zero;
-    }
     #region Movement
 
     private void Movement()
     {
         moveDirection = new Vector3(moveInput.x, 0, moveInput.y);
         ApplyGravity();
-        characterController.Move(moveDirection * (Time.deltaTime * walkSpeed));
+        float speed = isRunning ? runSpeed : walkSpeed;
+        characterController.Move(moveDirection * (Time.deltaTime * speed));
         
     }
 
     private void Jump()
     {
         Debug.Log("Jump");
-        moveDirection.y = jumpHeight;
+
     }
 
     private void ApplyGravity()
@@ -119,7 +115,21 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Bang bang");
     }
 
+    #region Input System
+    private void Register()
+    {
+        //_controls.Character.Fire.performed += context => Shoot();
+        _controls.Character.Movement.performed += context => moveInput = context.ReadValue<Vector2>();
+        _controls.Character.Movement.canceled += context => moveInput = Vector2.zero;
 
+        _controls.Character.Jump.started += context => Jump();
+        
+        _controls.Character.Aim.performed += context => aimInput = context.ReadValue<Vector2>();
+        _controls.Character.Aim.canceled += context => aimInput = Vector2.zero;
+        
+        _controls.Character.Run.started += context => isRunning = !isRunning;
+        //_controls.Character.Run.canceled += context => isRunning = false;
+    }
     private void OnEnable()
     {
         _controls.Enable();
@@ -129,4 +139,8 @@ public class PlayerMovement : MonoBehaviour
     {
         _controls.Disable();
     }
+
+    #endregion
+
+
 }

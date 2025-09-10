@@ -1181,9 +1181,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterController: {fileID: 0}
   walkSpeed: 3
-  runSpeed: 6
+  runSpeed: 4.5
   jumpHeight: 5
   gravity: 9.8
+  isRunning: 1
+  isMoving: 0
   aimLayerMask:
     serializedVersion: 2
     m_Bits: 192

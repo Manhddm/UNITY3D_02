@@ -112,13 +112,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Shoot()
     {
-        Debug.Log("Bang bang");
+        _animator.SetTrigger("Fire");
     }
 
     #region Input System
     private void Register()
     {
-        //_controls.Character.Fire.performed += context => Shoot();
+        _controls.Character.Fire.performed += context => Shoot();
         _controls.Character.Movement.performed += context => moveInput = context.ReadValue<Vector2>();
         _controls.Character.Movement.canceled += context => moveInput = Vector2.zero;
 
